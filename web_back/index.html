@@ -10,10 +10,31 @@
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/iconfont.css" />
   <link rel="stylesheet" href="css/main.css" />
-  <script src="js/lib/jquery-1.12.4.min.js"></script>
+  <script src="./js/lib/jquery-1.12.4.min.js"></script>
 </head>
 
 <body>
+  <!-- 模态框 -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">提示</h4>
+        </div>
+        <div class="modal-body">
+          <p id="pLogout">确定退出吗？</p>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" data-is='true'>退出</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
   <div class="sider">
     <a href="#" class="logo"><img src="images/logo02.png" alt="logo" /></a>
     <div class="user_info">
@@ -145,7 +166,8 @@
     }
   </script>
 
-  <script src="./js/utils/config.js"></script>
+  <!-- <script src="./js/utils/config.js"></script> -->
+  <script src="./js/bootstrap/js/bootstrap.min.js"></script>
   <script src="./js/utils/manager.js"></script>
 
   <script>
@@ -154,9 +176,17 @@
     // 1.添加logout的点击事件
     // 2.发送ajax请求
     // 3.反馈，跳转回登录页面
-    // $("#logout").click(function () {
-
-    // })
+    $("#logout").click(function () {
+      $('#pLogout').html("确定要退出吗？")
+      $('#myModal').modal('show');
+      $('.btn-primary').click(function () {
+        manager.logout(function (result) {
+          if (result.code === 200) {
+            window.location.href = "./login.html";
+          }
+        })
+      })
+    })
   </script>
 </body>
 

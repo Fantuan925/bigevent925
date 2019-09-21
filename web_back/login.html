@@ -71,7 +71,7 @@
         $('#myModal').modal('show');
       } else {
         //管理员登录
-        manager.login(userName, password,function(result){
+        manager.login(userName, password, function (result) {
           if (result.code === 200) {
             window.location.href = "./index.html";
           } else {
@@ -79,11 +79,11 @@
             $('#myModal').modal('show');
           }
         });
-        
+
       }
     })
-  
-    
+
+
   </script>
 </body>
 
