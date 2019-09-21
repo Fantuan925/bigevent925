@@ -56,6 +56,7 @@
 
   <script src="./js/lib/jquery-1.12.4.min.js"></script>
   <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./js/utils/manager.js"></script>
   <script>
     //思路
     // 添加按钮的点击事件
@@ -69,17 +70,20 @@
         $('#pLogin').html("用户名和密码为空，请输入！");
         $('#myModal').modal('show');
       } else {
-        $.post('http://localhost:8000/admin/login', { user_name: userName, password: password }, function (result) {
-          console.log(result);
+        //管理员登录
+        manager.login(userName, password,function(result){
           if (result.code === 200) {
             window.location.href = "./index.html";
           } else {
             $('#pLogin').html(result.msg);
             $('#myModal').modal('show');
           }
-        })
+        });
+        
       }
     })
+  
+    
   </script>
 </body>
 
