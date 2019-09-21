@@ -13,7 +13,8 @@
 </head>
 
 <body>
-  <div class="modal fade" tabindex="-1" role="dialog">
+  <!-- 模态框 -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -22,17 +23,17 @@
           <h4 class="modal-title">错误提示</h4>
         </div>
         <div class="modal-body">
-          <p id="pResult"></p>
+          <p id="pLogin"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <!-- --这是一条分割线 -->
+
   <div class="main_wrap">
     <div class="header">
       <a href="#" class="logo"><img src="images/logo.png" alt="" /></a>
@@ -52,7 +53,9 @@
     </div>
   </div>
 
+
   <script src="./js/lib/jquery-1.12.4.min.js"></script>
+  <script src="./js/bootstrap/js/bootstrap.min.js"></script>
   <script>
     //思路
     // 添加按钮的点击事件
@@ -62,16 +65,17 @@
     $("#btnLogin").click(function () {
       var userName = $(".input_txt").val();
       var password = $(".input_pass").val();
-      // console.log(userName,password)
       if (userName === "" || password === "") {
-        alert("内容为空，请输入");
+        $('#pLogin').html("用户名和密码为空，请输入！");
+        $('#myModal').modal('show');
       } else {
         $.post('http://localhost:8000/admin/login', { user_name: userName, password: password }, function (result) {
           console.log(result);
           if (result.code === 200) {
-            alert("老铁，打对了");
+            window.location.href = "./index.html";
           } else {
-            alert(result.msg);
+            $('#pLogin').html(result.msg);
+            $('#myModal').modal('show');
           }
         })
       }
